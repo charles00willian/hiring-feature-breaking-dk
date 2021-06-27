@@ -42,8 +42,8 @@ export class EmployeesAPI extends DataSource {
     }:
     {
       companyId: string, 
-      offset: number | undefined, 
-      limit: number | undefined
+      offset?: number | undefined, 
+      limit?: number | undefined
     }
   ) {
 

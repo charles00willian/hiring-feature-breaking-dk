@@ -14,8 +14,8 @@ export class CompaniesAPI extends DataSource {
     offset,
     limit
   }: {
-    offset: number | undefined, 
-    limit: number | undefined
+    offset?: number | undefined, 
+    limit?: number | undefined
   }) {
 
     const paginatedResult = await paginate<ICompanySchema>(
