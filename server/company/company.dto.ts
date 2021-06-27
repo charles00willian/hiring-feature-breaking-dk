@@ -15,5 +15,5 @@ export interface ICreateCompanyResponseDTO {
   cnpj: string;
   address: string;
   chosenBenefits: string[];
-  employees?: ICreateEmployeeResponseDTO[];
+  // employees?: ICreateEmployeeResponseDTO[];
 }

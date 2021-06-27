@@ -11,7 +11,6 @@ export class EmployeeMapper {
       cpf: data.cpf,
       name: data.name,
       phoneNumber: data.phoneNumber,
-      companies: data.companies?.map(company => company.toString()) || [],
     }
   }
 }

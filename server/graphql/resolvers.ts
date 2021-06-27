@@ -5,13 +5,15 @@ import {
 } from "../company/company.resolver.js";
 
 import {
-  createEmployee
+  createEmployee,
+  findEmployeeByCompanyId
 } from "../employee/employee.resolver.js";
 
 export const resolvers = {
   Query: {
     getAllCompanies,
     findCompanyById,
+    findEmployeeByCompanyId,
   },
   Mutation: {
     createCompany,

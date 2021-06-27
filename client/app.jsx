@@ -6,6 +6,7 @@ import { PageWrapper } from "./base-components/page-wrapper";
 import { CompaniesPage } from "./pages/companies/companies.page";
 import { CreateCompanyPage } from "./pages/create-company/create-company.page";
 import { CreateEmployeePage } from "./pages/create-employee/create-employee";
+import { EmployeesPage } from "./pages/employees/employees.page";
 
 export const App = () => (
   <BrowserRouter>
@@ -14,6 +15,7 @@ export const App = () => (
       <Switch>
         <Route path="/create-company" component={() => <CreateCompanyPage />} />
         <Route path="/create-employee" component={() => <CreateEmployeePage />} />
+        <Route path="/companies/:id" component={() => <EmployeesPage />} />
         <Route path="/companies" component={() => <CompaniesPage />} />
         <Redirect to="/companies" />
       </Switch>

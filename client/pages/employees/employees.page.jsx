@@ -1,11 +1,11 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { Companies } from "./companies.styles";
 import { Button } from "../../base-components/button";
 import { PageTitle } from "../../base-components/page-title";
 import { Row, Col, message } from "antd";
-import { GET_ALL_COMPANIES } from "../../graphql/queries";
+import {  GET_EMPLOYEES_BY_ID } from "../../graphql/queries";
+import { DefaultTable } from "../../base-components/default-table";
 
 const columns = [
   {
@@ -16,14 +16,14 @@ const columns = [
     sortDirections: ["ascend", "descend", "ascend"],
   },
   {
-    title: "Nome fantasia",
-    dataIndex: "tradingName",
-    key: "tradingName",
+    title: "CPF",
+    dataIndex: "cpf",
+    key: "cpf",
   },
   {
-    title: "CNPJ",
-    dataIndex: "cnpj",
-    key: "cnpj",
+    title: "Telefone",
+    dataIndex: "phoneNumber",
+    key: "phoneNumber",
   },
   {
     title: "Endereço",
@@ -32,41 +32,35 @@ const columns = [
   },
   {
     title: "Benefícios",
-    dataIndex: "chosenBenefits",
-    key: "chosenBenefits",
+    dataIndex: "benefits",
+    key: "benefits",
     render: (benefits) => <>{benefits.join(", ")}</>,
   },
 ];
 
-export const CompaniesPage = () => {
-  const history = useHistory();
+export const EmployeesPage = () => {
+  const history = useHistory(); 
+  const params = useParams();
 
-  const { loading: companiesLoading, data: companiesData } = useQuery(
-    GET_ALL_COMPANIES,
+  const { loading, data: employeeData } = useQuery(
+    GET_EMPLOYEES_BY_ID,
     {
+      variables: {
+        id: params.id,
+      },
       onError: (err) => message.error(err.message),
     }
   );
 
-  const handleRowClick = (record) => (_event) => {
-    history.push(`/companies/${record.id}`);
-  };
-
-  const handleRow = (record) => {
-    return {
-      onClick: handleRowClick(record),
-    };
-  };
-
   const handleCreateCompany = (_event) => {
-    history.push(`/create-company`);
+    history.push(`/create-employee`);
   };
 
   return (
     <>
       <Row align="middle" gutter={[0, 24]}>
         <Col>
-          <PageTitle>Empresas</PageTitle>
+          <PageTitle>Colaboradores</PageTitle>
         </Col>
         <Col>
           <Button
@@ -74,17 +68,15 @@ export const CompaniesPage = () => {
             onClick={handleCreateCompany}
             color="secondary"
           >
-            Criar empresa
+            Criar colaborador
           </Button>
         </Col>
         <Col span={24}>
-          <Companies
-            loading={companiesLoading}
-            pagination={{ pageSize: 6 }}
+          <DefaultTable
+            loading={loading}
             rowKey={(record) => record.id}
             columns={columns}
-            dataSource={companiesData?.getAllCompanies ?? []}
-            onRow={handleRow}
+            dataSource={employeeData?.findEmployeeByCompanyId || []}
           />
         </Col>
       </Row>

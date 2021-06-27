@@ -33,4 +33,13 @@ export class EmployeesAPI extends DataSource {
 
     return EmployeeMapper.toDTO(employee);
   }
+
+  async findEmployeeByCompanyId(companyId: string) {
+
+    const employees = await this.employeeModel.find({
+      companies: companyId as any,
+    });
+
+    return employees.map(EmployeeMapper.toDTO);
+  }
 }

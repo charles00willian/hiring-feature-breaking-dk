@@ -16,6 +16,6 @@ export interface ICreateEmployeeResponseDTO {
   address: string;
   phoneNumber: string;
   benefits: string[];
-  companies?: string[];
+  // companies?: string[];
 }
 

@@ -1,6 +1,5 @@
 import { ICreateCompanyResponseDTO } from "../company/company.dto";
 import { ICompanySchema } from "../company/company.model";
-import { EmployeeMapper } from "./employee.mapper";
 
 export class CompanyMapper {
   static toDTO(data: ICompanySchema): ICreateCompanyResponseDTO {
@@ -10,8 +9,7 @@ export class CompanyMapper {
       chosenBenefits: data.chosenBenefits,
       cnpj: data.cnpj,
       name: data.name,
-      tradingName: data.tradingName,
-      employees: data.employees?.map(employee => EmployeeMapper.toDTO(employee)) || [],
+      tradingName: data.tradingName
     }
   }
 }

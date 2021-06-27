@@ -43,7 +43,6 @@ export const CREATE_EMPLOYEE = gql`
       benefits: $benefits
     ) {
       name
-      companies
       cpf
       address
       phoneNumber

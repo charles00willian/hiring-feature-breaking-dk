@@ -8,22 +8,21 @@ export const typeDefs = gql`
     cnpj: String
     address: String
     chosenBenefits: [String]
-    employees: [String]
   }
 
   type Employee {
     id: ID
     name: String
-    companies: [String]
+    benefits: [String]
     cpf: String
     address: String
     phoneNumber: String
-    benefits: [String]
   }
 
   type Query {
     getAllCompanies: [Company]
     findCompanyById(id: String!): Company
+    findEmployeeByCompanyId(id: String!): [Employee]
   }
 
   type Mutation {

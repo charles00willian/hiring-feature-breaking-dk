@@ -1,11 +1,11 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { Companies } from "./companies.styles";
 import { Button } from "../../base-components/button";
 import { PageTitle } from "../../base-components/page-title";
 import { Row, Col, message } from "antd";
 import { GET_ALL_COMPANIES } from "../../graphql/queries";
+import { DefaultTable } from "../../base-components/default-table";
 
 const columns = [
   {
@@ -78,7 +78,7 @@ export const CompaniesPage = () => {
           </Button>
         </Col>
         <Col span={24}>
-          <Companies
+          <DefaultTable
             loading={companiesLoading}
             pagination={{ pageSize: 6 }}
             rowKey={(record) => record.id}
