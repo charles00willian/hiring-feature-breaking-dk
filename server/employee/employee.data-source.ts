@@ -1,7 +1,6 @@
 import { DataSource } from "apollo-datasource";
 import mongoose from "mongoose";
 import { ICompanySchema } from "../company/company.model";
-import { EmployeeMapper } from "../maps/employee.mapper";
 import checkDuplicate from "../utils/hasDuplicates";
 import paginate from "../utils/paginate";
 import { ICreateEmployeeRequestDTO } from "./employee.dto";
@@ -32,7 +31,7 @@ export class EmployeesAPI extends DataSource {
       }
     });
 
-    return EmployeeMapper.toDTO(employee);
+    return employee;
   }
 
   async findEmployeeByCompanyId(
@@ -63,7 +62,7 @@ export class EmployeesAPI extends DataSource {
       pagination: {
       ...paginatedResult
       },
-      nodes: paginatedResult.docs.map(EmployeeMapper.toDTO)
+      nodes: paginatedResult.docs
     };
   }
 }

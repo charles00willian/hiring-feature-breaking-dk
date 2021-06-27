@@ -26,8 +26,6 @@ export class CompaniesAPI extends DataSource {
       this.model
     );
 
-    console.log(paginatedResult)
-
     return  {
       pagination: {
         ...paginatedResult,
