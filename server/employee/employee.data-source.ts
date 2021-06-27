@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import { ICompanySchema } from "../company/company.model";
 import { EmployeeMapper } from "../maps/employee.mapper";
 import checkDuplicate from "../utils/hasDuplicates";
+import paginate from "../utils/paginate";
 import { ICreateEmployeeRequestDTO } from "./employee.dto";
 import { IEmployeeSchema } from "./employee.model";
 
@@ -34,12 +35,35 @@ export class EmployeesAPI extends DataSource {
     return EmployeeMapper.toDTO(employee);
   }
 
-  async findEmployeeByCompanyId(companyId: string) {
+  async findEmployeeByCompanyId(
+    {
+      companyId,
+      offset, 
+      limit
+    }:
+    {
+      companyId: string, 
+      offset: number | undefined, 
+      limit: number | undefined
+    }
+  ) {
 
-    const employees = await this.employeeModel.find({
-      companies: companyId as any,
-    });
+    const paginatedResult = await paginate<IEmployeeSchema>(
+      {
+        limit,
+        offset
+      }, 
+      this.employeeModel,
+      {
+        companies: companyId as any,
+      }
+    );
 
-    return employees.map(EmployeeMapper.toDTO);
+    return {
+      pagination: {
+      ...paginatedResult
+      },
+      nodes: paginatedResult.docs.map(EmployeeMapper.toDTO)
+    };
   }
 }

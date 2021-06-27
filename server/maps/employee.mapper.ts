@@ -1,6 +1,5 @@
 import { ICreateEmployeeResponseDTO } from "../employee/employee.dto";
 import { IEmployeeSchema } from "../employee/employee.model";
-import { CompanyMapper } from "./company.mapper";
 
 export class EmployeeMapper {
   static toDTO(data: IEmployeeSchema): ICreateEmployeeResponseDTO {

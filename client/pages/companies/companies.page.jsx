@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { Button } from "../../base-components/button";
@@ -37,13 +37,21 @@ const columns = [
     render: (benefits) => <>{benefits.join(", ")}</>,
   },
 ];
+const limit = 5;
 
 const CompaniesPage = () => {
   const history = useHistory();
 
+  const [offset, setOffset] = useState(0)
+
+
   const { loading: companiesLoading, data: companiesData } = useQuery(
     GET_ALL_COMPANIES,
     {
+      variables: {
+        limit: limit,
+        offset,
+      },
       onError: (err) => message.error(err.message),
     }
   );
@@ -61,6 +69,10 @@ const CompaniesPage = () => {
   const handleCreateCompany = (_event) => {
     history.push(`/create-company`);
   };
+
+  const onChangePage = (pagination) => {
+    setOffset((pagination.current - 1) * limit)
+  }
 
   return (
     <>
@@ -80,10 +92,14 @@ const CompaniesPage = () => {
         <Col span={24}>
           <DefaultTable
             loading={companiesLoading}
-            pagination={{ pageSize: 6 }}
+            pagination={{ 
+              pageSize: limit, 
+              total: companiesData?.getAllCompanies?.pagination.totalElements  
+            }}
             rowKey={(record) => record.id}
             columns={columns}
-            dataSource={companiesData?.getAllCompanies ?? []}
+            dataSource={companiesData?.getAllCompanies?.nodes ?? []}
+            onChange={onChangePage}
             onRow={handleRow}
           />
         </Col>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { Button } from "../../base-components/button";
@@ -38,23 +38,35 @@ const columns = [
   },
 ];
 
+const limit = 5;
+
 const EmployeesPage = () => {
   const history = useHistory(); 
   const params = useParams();
+
+  const [offset, setOffset] = useState(0)
 
   const { loading, data: employeeData } = useQuery(
     GET_EMPLOYEES_BY_ID,
     {
       variables: {
         id: params.id,
+        limit: limit,
+        offset,
       },
       onError: (err) => message.error(err.message),
     }
   );
 
+  console.log(employeeData)
+
   const handleCreateCompany = (_event) => {
     history.push(`/create-employee`);
   };
+
+  const onChangePage = (pagination) => {
+    setOffset((pagination.current - 1) * limit)
+  }
 
   return (
     <>
@@ -75,8 +87,13 @@ const EmployeesPage = () => {
           <DefaultTable
             loading={loading}
             rowKey={(record) => record.id}
+            pagination={{ 
+              pageSize: limit, 
+              total: employeeData?.findEmployeeByCompanyId?.pagination.totalElements  
+            }}
             columns={columns}
-            dataSource={employeeData?.findEmployeeByCompanyId || []}
+            onChange={onChangePage}
+            dataSource={employeeData?.findEmployeeByCompanyId?.nodes || []}
           />
         </Col>
       </Row>

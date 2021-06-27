@@ -26,7 +26,7 @@ const CreateEmployeePage = () => {
 
   useEffect(() => {
     if(companiesData?.getAllCompanies){
-      setOptions(companiesData.getAllCompanies.map(company => ({
+      setOptions(companiesData?.getAllCompanies?.nodes.map(company => ({
         value: company.id,
         label: company.name,
       })))

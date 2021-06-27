@@ -1,5 +1,6 @@
 import { DataSource } from "apollo-datasource";
 import mongoose from "mongoose";
+import paginate from "../utils/paginate";
 import validateBenefits from "../utils/validateBenefits";
 import { ICreateCompanyRequestDTO } from "./company.dto";
 import { ICompanySchema } from "./company.model";
@@ -9,8 +10,30 @@ export class CompaniesAPI extends DataSource {
     super();
   }
 
-  async getAllCompanies() {
-    return this.model.find();
+  async getAllCompanies({
+    offset,
+    limit
+  }: {
+    offset: number | undefined, 
+    limit: number | undefined
+  }) {
+
+    const paginatedResult = await paginate<ICompanySchema>(
+      {
+        limit,
+        offset
+      }, 
+      this.model
+    );
+
+    console.log(paginatedResult)
+
+    return  {
+      pagination: {
+        ...paginatedResult,
+      },
+      nodes: paginatedResult.docs,
+    }
   }
 
   async findById(id: string) {
