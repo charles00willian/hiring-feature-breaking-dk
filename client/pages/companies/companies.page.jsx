@@ -38,7 +38,7 @@ const columns = [
   },
 ];
 
-export const CompaniesPage = () => {
+const CompaniesPage = () => {
   const history = useHistory();
 
   const { loading: companiesLoading, data: companiesData } = useQuery(
@@ -91,3 +91,5 @@ export const CompaniesPage = () => {
     </>
   );
 };
+
+export default CompaniesPage;

@@ -10,7 +10,7 @@ import { GET_ALL_COMPANIES } from "../../graphql/queries";
 const { benefits } = constants;
 
 
-export const CreateEmployeePage = () => {
+const CreateEmployeePage = () => {
   const [form] = Form.useForm();
 
   const [createEmployee, { loading: creating }] = useMutation(CREATE_EMPLOYEE);
@@ -163,3 +163,5 @@ export const CreateEmployeePage = () => {
     </>
   );
 };
+
+export default CreateEmployeePage;

@@ -38,7 +38,7 @@ const columns = [
   },
 ];
 
-export const EmployeesPage = () => {
+const EmployeesPage = () => {
   const history = useHistory(); 
   const params = useParams();
 
@@ -83,3 +83,5 @@ export const EmployeesPage = () => {
     </>
   );
 };
+
+export default EmployeesPage

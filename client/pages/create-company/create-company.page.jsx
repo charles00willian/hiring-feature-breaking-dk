@@ -9,7 +9,7 @@ import constants from "../../shared/constants";
 
 const { benefits } = constants;
 
-export const CreateCompanyPage = () => {
+const CreateCompanyPage = () => {
   const [form] = Form.useForm();
 
   const [createCompany, { loading: creating }] = useMutation(CREATE_COMPANY);
@@ -121,3 +121,5 @@ export const CreateCompanyPage = () => {
     </>
   );
 };
+
+export default CreateCompanyPage

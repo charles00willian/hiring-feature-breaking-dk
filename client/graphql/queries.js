@@ -16,6 +16,7 @@ export const GET_ALL_COMPANIES = gql`
 export const GET_EMPLOYEES_BY_ID = gql`
   query GetEmployeeByCompanyId($id: String!)  {
     findEmployeeByCompanyId(id: $id){
+      id
       name
       cpf
       address
