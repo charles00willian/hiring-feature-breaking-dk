@@ -1,5 +1,5 @@
-import companyModel from "../company/company.model";
 import { ApolloServer } from "apollo-server";
+import companyModel from "../company/company.model";
 import { CompaniesAPI } from "../company/company.data-source";
 import { resolvers } from "./resolvers";
 import { typeDefs } from "./schema";

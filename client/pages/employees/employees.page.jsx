@@ -4,7 +4,7 @@ import { useQuery } from "@apollo/client";
 import { Button } from "../../base-components/button";
 import { PageTitle } from "../../base-components/page-title";
 import { Row, Col, message } from "antd";
-import {  GET_EMPLOYEES_BY_ID } from "../../graphql/queries";
+import {  GET_EMPLOYEES_BY_COMPANY_ID } from "../../graphql/queries";
 import { DefaultTable } from "../../base-components/default-table";
 
 const columns = [
@@ -47,7 +47,7 @@ const EmployeesPage = () => {
   const [offset, setOffset] = useState(0)
 
   const { loading, data: employeeData } = useQuery(
-    GET_EMPLOYEES_BY_ID,
+    GET_EMPLOYEES_BY_COMPANY_ID,
     {
       variables: {
         id: params.id,
